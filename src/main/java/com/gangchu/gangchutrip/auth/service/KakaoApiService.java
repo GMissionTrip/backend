@@ -7,13 +7,12 @@ import com.gangchu.gangchutrip.auth.entity.Member;
 import com.gangchu.gangchutrip.auth.repository.MemberRepository;
 import com.gangchu.gangchutrip.global.util.JwtUtil;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,7 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class KakaoApiService {
 
     @Value("${kakao.client-id}")
@@ -41,16 +40,17 @@ public class KakaoApiService {
     private String redirectUri;
 
     private final ObjectMapper objectMapper;
-    private final RestClient restClient;
+//    private final RestClient restClient;
+    private final RestTemplate restTemplate;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
 
-    public KakaoApiService(ObjectMapper objectMapper, RestClient.Builder restClientBuilder, MemberRepository memberRepository, JwtUtil jwtUtil) {
-        this.objectMapper = objectMapper;
-        this.restClient = restClientBuilder.baseUrl(kapiHost).build();
-        this.memberRepository = memberRepository;
-        this.jwtUtil = jwtUtil;
-    }
+//    public KakaoApiService(ObjectMapper objectMapper, RestClient.Builder restClientBuilder, MemberRepository memberRepository, JwtUtil jwtUtil) {
+//        this.objectMapper = objectMapper;
+//        this.restClient = restClientBuilder.baseUrl(kapiHost).build();
+//        this.memberRepository = memberRepository;
+//        this.jwtUtil = jwtUtil;
+//    }
 
     public String createDefaultMessage() {
         return "template_object={\"object_type\":\"text\",\"text\":\"Hello, world!\",\"link\":{\"web_url\":\"https://developers.kakao.com\",\"mobile_web_url\":\"https://developers.kakao.com\"}}";
@@ -75,22 +75,28 @@ public class KakaoApiService {
     }
 
     private String call(String method, String urlString, String body) throws Exception {
-        RestClient.RequestBodySpec requestSpec = restClient.method(HttpMethod.valueOf(method))
-                .uri(urlString)
-                .headers(headers -> headers.setBearerAuth(getAccessToken()));
+
+//        RestClient.RequestBodySpec requestSpec = restClient.method(HttpMethod.valueOf(method))
+//                .uri(urlString)
+//                .headers(headers -> headers.setBearerAuth(getAccessToken()));
+        HttpHeaders headers =  new HttpHeaders();
+        headers.setBearerAuth(getAccessToken());
 
         if (body != null) {
-            requestSpec.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                    .body(body);
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         }
+        HttpEntity<String> entity = new HttpEntity<>(body, headers);
         try {
-            return requestSpec.retrieve()
-                    .body(String.class);
+            ResponseEntity<String> response = restTemplate.exchange(
+                    urlString,
+                    HttpMethod.valueOf(method),
+                    entity,
+                    String.class
+            );
+            return response.getBody();
         } catch (RestClientResponseException e) {
-            // 에러 메시지 (응답 바디)
-            String errorBody = e.getResponseBodyAsString();
-            System.out.println("Error Body: " + errorBody);
-            return errorBody;
+            System.out.println(e.getResponseBodyAsString());
+            return e.getResponseBodyAsString();
         }
     }
 
@@ -100,14 +106,12 @@ public class KakaoApiService {
                 .queryParam("client_id", clientId)
                 .queryParam("redirect_uri", redirectUri)
                 .queryParam("response_type", "code")
-//                .queryParam("prompt", "select_account")
                 .queryParamIfPresent("scope", scope != null ? java.util.Optional.of(scope) : java.util.Optional.empty())
                 .build()
                 .toUriString();
     }
 
     public AuthResponseDto handleAuthorizationCallback(String code) {
-        AuthResponseDto authResponseDto = new AuthResponseDto();
         try {
             KakaoTokenResponse tokenResponse = getToken(code);
 
@@ -122,9 +126,7 @@ public class KakaoApiService {
                 System.out.println("email: " + email);
                 String accessToken = jwtUtil.generateAccessToken(email);
                 String refreshToken = jwtUtil.generateRefreshToken(email);
-                authResponseDto.setAccessToken(accessToken);
-                authResponseDto.setRefreshToken(refreshToken);
-                authResponseDto.setSucceed(true);
+                AuthResponseDto data = new AuthResponseDto(accessToken, refreshToken);
                 if(memberRepository.existsByEmail(email)){
                     System.out.println("그냥 로그인");
                 }
@@ -139,15 +141,13 @@ public class KakaoApiService {
                     System.out.println("email: " + email + " nickname: " + nickname + " profileImageUrl: " + profileImageUrl);
                     memberRepository.save(member);
                 }
-                return authResponseDto;
+                return data;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            authResponseDto.setSucceed(false);
-            return authResponseDto;
+            return null;
         }
-        authResponseDto.setSucceed(true);
-        return authResponseDto;
+        return null;
     }
 
     private KakaoTokenResponse getToken(String code) throws Exception {

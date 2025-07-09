@@ -1,18 +1,16 @@
 package com.gangchu.gangchutrip.auth.dto;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class AuthResponseDto {
 
-    @JsonProperty("succeed")
-    private boolean succeed;
-
-    @JsonProperty("accessToken")
+    @Schema(description = "access token")
     private String accessToken;
 
-    @JsonProperty("refreshToken")
+    @Schema(description = "refresh token")
     private String refreshToken;
 }

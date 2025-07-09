@@ -2,9 +2,10 @@ package com.gangchu.gangchutrip.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -14,10 +15,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nickname;    //유저 닉네임
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    private String email;       //유저 이메일
+    @Column(nullable = false)
+    private String nickname;
 
-    @Column(length = 500)
+    @Column
     private String profile_image_url;
+
 }

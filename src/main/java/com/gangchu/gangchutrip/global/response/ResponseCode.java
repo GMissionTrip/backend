@@ -15,6 +15,8 @@ public enum ResponseCode {
     NO_DATA(HttpStatus.NO_CONTENT, "NO DATA"),
     //400 validation
     OK(HttpStatus.OK, "OK"),
+    CREATED(HttpStatus.CREATED, "CREATED"),
+    //400 bad request
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "BAD REQUEST"),
     //ex
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "올바르지 않은 인자입니다"),
