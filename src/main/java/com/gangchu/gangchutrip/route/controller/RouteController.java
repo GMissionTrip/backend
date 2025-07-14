@@ -6,12 +6,16 @@ import com.gangchu.gangchutrip.route.service.RouteService;
 import com.gangchu.gangchutrip.route.algorithm.TspSolver;
 import com.gangchu.gangchutrip.global.response.ApiResponseFactory;
 import com.gangchu.gangchutrip.global.response.ResponseCode;
+import com.gangchu.gangchutrip.route.dto.KakaoRouteResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Tag(name = "Route", description = "다중경유지 길찾기/최적화 API")
 @RestController
 @RequestMapping("/api/route")
 @RequiredArgsConstructor
@@ -19,16 +23,18 @@ public class RouteController {
     private final RouteService routeService;
     private final TspSolver tspSolver;
 
+    @Operation(summary = "다중경유지 길찾기", description = "경유지를 포함한 경로를 반환합니다.")
     @PostMapping("/directions")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> getDirections(@RequestBody RouteRequestDto request) {
-        Map<String, Object> data = routeService.getDirections(request.toKakaoDto());
+    public ResponseEntity<ApiResponse<KakaoRouteResponseDto>> getDirections(@RequestBody RouteRequestDto request) {
+        KakaoRouteResponseDto data = routeService.getDirections(request.toKakaoDto());
         return ApiResponseFactory.success(ResponseCode.ROUTE_FOUND, data);
     }
 
+    @Operation(summary = "다중경유지 최적화", description = "경유지 순서를 최적화한 경로를 반환합니다.")
     @PostMapping("/optimize")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> optimizeRoute(@RequestBody RouteRequestDto request) {
+    public ResponseEntity<ApiResponse<KakaoRouteResponseDto>> optimizeRoute(@RequestBody RouteRequestDto request) {
         var optimized = tspSolver.solveTsp(request);
-        Map<String, Object> data = routeService.getDirections(request.toKakaoDtoWithWaypoints(optimized));
+        KakaoRouteResponseDto data = routeService.getDirections(request.toKakaoDtoWithWaypoints(optimized));
         return ApiResponseFactory.success(ResponseCode.ROUTE_OPTIMIZED, data);
     }
 }
