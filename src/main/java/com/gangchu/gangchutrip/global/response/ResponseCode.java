@@ -30,7 +30,11 @@ public enum ResponseCode {
 
     //500 internal server error
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL SERVER ERROR"),
-    DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "DB ERROR");
+    DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "DB ERROR"),
+
+    // RouteController 관련 응답 코드
+    ROUTE_FOUND(HttpStatus.OK, "다중경유지 길찾기 성공"),
+    ROUTE_OPTIMIZED(HttpStatus.OK, "다중경유지 길찾기 최적화 성공");
 
 
     private final HttpStatus status;
