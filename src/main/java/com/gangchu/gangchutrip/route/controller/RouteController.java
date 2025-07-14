@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/route")
+@RequestMapping("/api/route")
 @RequiredArgsConstructor
 public class RouteController {
     private final RouteService routeService;
