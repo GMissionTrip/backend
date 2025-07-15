@@ -32,7 +32,8 @@ public enum ResponseCode {
 
     //500 internal server error
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL SERVER ERROR"),
-    DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "DB ERROR");
+    DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "DB ERROR"),
+    KAKAO_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "KAKAO API ERROR");
 
 
     private final HttpStatus status;
