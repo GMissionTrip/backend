@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class KakaoApiService {
+public class AuthService {
 
     @Value("${kakao.client-id}")
     private String clientId;

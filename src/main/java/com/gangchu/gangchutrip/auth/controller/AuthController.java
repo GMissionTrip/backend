@@ -1,7 +1,7 @@
 package com.gangchu.gangchutrip.auth.controller;
 
 
-import com.gangchu.gangchutrip.auth.service.KakaoApiService;
+import com.gangchu.gangchutrip.auth.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,7 +28,7 @@ import java.util.Map;
 @Tag(name ="인증", description = "인증 관련 API")
 public class AuthController {
 
-    private final KakaoApiService kakaoApiService;
+    private final AuthService authService;
 
 
     @GetMapping("/authorization")
@@ -46,7 +46,7 @@ public class AuthController {
                                         content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                                         schema = @Schema(implementation = Map.class)))})
     public ResponseEntity<?> authorization(@RequestParam(required = false) String scope) {
-        return kakaoApiService.getAuthUrl(scope);
+        return authService.getAuthUrl(scope);
     }
 
 
@@ -73,7 +73,7 @@ public class AuthController {
                                             name = "ErrorResponse",
                                             value = "{\"error\": \"Invalid request\"}")))})
     ResponseEntity<?> handleRedirect(@RequestParam String code) {
-        return kakaoApiService.handleAuthorizationCallback(code);
+        return authService.handleAuthorizationCallback(code);
     }
 
 
@@ -97,7 +97,7 @@ public class AuthController {
             }
     )
     ResponseEntity<?> logout() {
-       return kakaoApiService.logout();
+       return authService.logout();
     }
     @GetMapping("/unlink")
     @Operation(
@@ -123,6 +123,6 @@ public class AuthController {
             }
     )
     ResponseEntity<?> unlink() {
-        return kakaoApiService.unlink();
+        return authService.unlink();
     }
 }
