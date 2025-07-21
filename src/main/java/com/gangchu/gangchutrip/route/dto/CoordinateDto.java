@@ -1,8 +1,9 @@
 package com.gangchu.gangchutrip.route.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
 public class CoordinateDto {
     private double x;
     private double y;

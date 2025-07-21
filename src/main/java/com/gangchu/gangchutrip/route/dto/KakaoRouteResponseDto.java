@@ -1,22 +1,28 @@
 package com.gangchu.gangchutrip.route.dto;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-@Data
+@Getter
 public class KakaoRouteResponseDto {
-    private String trans_id;
+    @JsonProperty("trans_id")
+    private String transId;
     private List<RouteDto> routes;
 
-    @Data
+    @Getter
     public static class RouteDto {
-        private int result_code;
-        private String result_msg;
+        @JsonProperty("result_code")
+        private int resultCode;
+        @JsonProperty("result_msg")
+        private String resultMsg;
         private SummaryDto summary;
         private List<SectionDto> sections;
     }
 
-    @Data
+    @Getter
     public static class SummaryDto {
         private PlaceDto origin;
         private PlaceDto destination;
@@ -28,31 +34,34 @@ public class KakaoRouteResponseDto {
         private int duration;
     }
 
-    @Data
+    @Getter
     public static class PlaceDto {
         private String name;
         private double x;
         private double y;
     }
 
-    @Data
+    @Getter
     public static class BoundDto {
-        private double min_x;
-        private double min_y;
-        private double max_x;
-        private double max_y;
+        @JsonProperty("min_x")
+        private double minX;
+        @JsonProperty("min_y")
+        private double minY;
+        @JsonProperty("max_x")
+        private double maxX;
+        @JsonProperty("max_y")
+        private double maxY;
     }
 
-    @Data
+    @Getter
     public static class FareDto {
         private int taxi;
         private int toll;
     }
 
-    @Data
+    @Getter
     public static class SectionDto {
         private int distance;
         private int duration;
     }
 }
-

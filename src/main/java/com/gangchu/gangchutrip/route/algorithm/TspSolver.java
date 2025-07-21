@@ -9,6 +9,8 @@ import java.util.*;
 @Component
 public class TspSolver {
     private static final double INF = Double.MAX_VALUE / 2;
+    // 경유지가 15-20개 제한
+    private static final int MAX_WAYPOINTS = 20;
 
     public List<CoordinateDto> solveTsp(RouteRequestDto request) {
         CoordinateDto origin = request.getOrigin();
@@ -17,6 +19,11 @@ public class TspSolver {
 
         if (waypoints == null || waypoints.isEmpty()) {
             return Collections.emptyList();
+        }
+
+        // 경유지 수 제한 확인
+        if (waypoints.size() > MAX_WAYPOINTS) {
+            throw new IllegalArgumentException("경유지는 최대 " + MAX_WAYPOINTS + "개까지 처리할 수 있습니다.");
         }
 
         List<CoordinateDto> nodes = buildNodes(origin, waypoints);
@@ -99,7 +106,7 @@ public class TspSolver {
         double[][] dist = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                dist[i][j] = (i == j) ? 0 : distance(nodes.get(i), nodes.get(j));
+                dist[i][j] = (i == j) ? 0 : calculateDistance(nodes.get(i), nodes.get(j));
             }
         }
         return dist;
@@ -126,9 +133,22 @@ public class TspSolver {
         return path;
     }
 
-    private double distance(CoordinateDto a, CoordinateDto b) {
-        double dx = a.getX() - b.getX();
-        double dy = a.getY() - b.getY();
-        return Math.sqrt(dx * dx + dy * dy);
+    private double calculateDistance(CoordinateDto a, CoordinateDto b) {
+        double lat1 = Math.toRadians(a.getY());
+        double lon1 = Math.toRadians(a.getX());
+        double lat2 = Math.toRadians(b.getY());
+        double lon2 = Math.toRadians(b.getX());
+
+        double dlat = lat2 - lat1;
+        double dlon = lon2 - lon1;
+
+        double aHarv = Math.pow(Math.sin(dlat / 2), 2) +
+                Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(aHarv), Math.sqrt(1 - aHarv));
+
+        final double EARTH_RADIUS = 6371.0;
+        return EARTH_RADIUS * c;
+
     }
 }

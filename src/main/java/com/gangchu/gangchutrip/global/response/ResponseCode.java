@@ -34,7 +34,11 @@ public enum ResponseCode {
 
     // RouteController 관련 응답 코드
     ROUTE_FOUND(HttpStatus.OK, "다중경유지 길찾기 성공"),
-    ROUTE_OPTIMIZED(HttpStatus.OK, "다중경유지 길찾기 최적화 성공");
+    ROUTE_OPTIMIZED(HttpStatus.OK, "다중경유지 길찾기 최적화 성공"),
+    KAKAO_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "카카오 API 호출 오류"),
+    MISSING_ORIGIN(HttpStatus.BAD_REQUEST, "출발지는 필수입니다"),
+    MISSING_DESTINATION(HttpStatus.BAD_REQUEST, "목적지는 필수입니다");
+
 
 
     private final HttpStatus status;

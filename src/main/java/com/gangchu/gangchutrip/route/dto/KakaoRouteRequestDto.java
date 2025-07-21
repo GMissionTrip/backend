@@ -2,12 +2,12 @@ package com.gangchu.gangchutrip.route.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
 @Builder
 public class KakaoRouteRequestDto {
     private final Map<String, Object> origin;
