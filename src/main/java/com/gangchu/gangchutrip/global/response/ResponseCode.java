@@ -15,6 +15,8 @@ public enum ResponseCode {
     NO_DATA(HttpStatus.NO_CONTENT, "NO DATA"),
     //400 validation
     OK(HttpStatus.OK, "OK"),
+    CREATED(HttpStatus.CREATED, "CREATED"),
+    //400 bad request
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "BAD REQUEST"),
     //ex
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "올바르지 않은 인자입니다"),
@@ -39,6 +41,7 @@ public enum ResponseCode {
     MISSING_ORIGIN(HttpStatus.BAD_REQUEST, "출발지는 필수입니다"),
     MISSING_DESTINATION(HttpStatus.BAD_REQUEST, "목적지는 필수입니다");
 
+    KAKAO_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "KAKAO API ERROR");
 
 
     private final HttpStatus status;
