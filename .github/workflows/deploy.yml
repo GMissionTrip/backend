@@ -10,29 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 코드 체크아웃
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. JDK 설치
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: '17'
 
+      # 3. Gradle 빌드
       - name: Build with Gradle
         run: ./gradlew build -x test
 
+      # 4. Docker Hub 로그인
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      # 5. Docker 이미지 빌드 및 푸시
       - name: Build and push Docker image
         run: |
           docker build -t docker1jeong/gmtrip:latest .
           docker push docker1jeong/gmtrip:latest
 
+      # 6. EC2에 배포
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
