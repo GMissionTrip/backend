@@ -41,9 +41,6 @@ public enum ResponseCode {
     MISSING_ORIGIN(HttpStatus.BAD_REQUEST, "출발지는 필수입니다"),
     MISSING_DESTINATION(HttpStatus.BAD_REQUEST, "목적지는 필수입니다");
 
-    KAKAO_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "KAKAO API ERROR");
-
-
     private final HttpStatus status;
     private final String message;
 

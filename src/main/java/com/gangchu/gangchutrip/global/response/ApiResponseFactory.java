@@ -22,6 +22,7 @@ public class ApiResponseFactory {
         return ResponseEntity
                 .status(code.getStatus())
                 .body(ApiResponse.error(code, message));
+    }
 
     public static ResponseEntity<Void> success(ResponseCode code, URI uri) {
         return ResponseEntity
