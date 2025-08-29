@@ -51,3 +51,4 @@ jobs:
             docker stop gmtrip || true
             docker rm gmtrip || true
             docker run -d --name gmtrip -p 8080:8080 docker1jeong/gmtrip:latest
+
