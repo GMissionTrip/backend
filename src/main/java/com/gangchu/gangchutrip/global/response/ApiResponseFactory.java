@@ -1,5 +1,6 @@
 package com.gangchu.gangchutrip.global.response;
 
+import com.gangchu.gangchutrip.member.dto.MemberResponseDTO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -20,8 +21,9 @@ public class ApiResponseFactory {
 
     public static <T> ResponseEntity<ApiResponse<T>> error(ResponseCode code, String message) {
         return ResponseEntity
-                .status(code.getStatus())
-                .body(ApiResponse.error(code, message));
+            .status(code.getStatus())
+            .body(ApiResponse.error(code, message));
+    }
 
     public static ResponseEntity<Void> success(ResponseCode code, URI uri) {
         return ResponseEntity
@@ -36,5 +38,4 @@ public class ApiResponseFactory {
                 .contentType(MediaType.TEXT_HTML)
                 .body(html);
     }
-
 }

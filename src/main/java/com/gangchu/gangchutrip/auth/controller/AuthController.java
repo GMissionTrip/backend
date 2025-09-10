@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,7 +78,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     @Operation(
             summary = "카카오 로그아웃",
             description = "카카오 로그아웃을 수행합니다. 세션에서 access token을 제거합니다.",

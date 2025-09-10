@@ -1,6 +1,7 @@
 package com.gangchu.gangchutrip.auth.entity;
 
 import jakarta.persistence.*;
+import java.sql.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,5 +24,11 @@ public class Member {
 
     @Column
     private String profile_image_url;
+
+    @Column
+    private Date created_at;
+
+    @Column
+    private Integer point;
 
 }
