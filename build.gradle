@@ -39,6 +39,9 @@ dependencies {
     testImplementation 'org.springframework.kafka:spring-kafka-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    //spring security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
 
     //JWT관련
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
