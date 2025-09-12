@@ -39,3 +39,11 @@ out/
 
 ### application.yml
 /src/main/resources/application.yml
+
+# --- Python ---
+.venv/
+venv/
+**/__pycache__/
+*.pyc
+src/main/pose-infer/.venv/
+src/main/pose-infer/**/__pycache__/
