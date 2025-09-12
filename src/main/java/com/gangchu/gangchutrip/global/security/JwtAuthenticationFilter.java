@@ -1,7 +1,7 @@
 package com.gangchu.gangchutrip.global.security;
 
 
-import com.gangchu.gangchutrip.global.util.JwtUtil;
+import com.gangchu.gangchutrip.global.security.jwt.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -20,46 +21,50 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private static final String BEARER_PREFIX = "Bearer ";
-    private final JwtUtil jwtUtil;
-
+    private static final String BEARER = "Bearer ";
+    private final JwtTokenProvider tokenProvider;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+        throws ServletException, IOException {
         try {
-            String token = extractTokenFromRequest(request);
-            if (token != null && jwtUtil.validateToken(token)) {
-                setupAuthentication(request, token);
+            String token = resolve(req);
+            if (token != null && tokenProvider.validate(token)) {
+                var auth = tokenProvider.getAuthentication(token);
+                var context = SecurityContextHolder.createEmptyContext();
+                context.setAuthentication(auth);
+                SecurityContextHolder.setContext(context);
             }
         } catch (SecurityException | IllegalArgumentException e) {
-            log.error("JWT Authentication failed: {}", e.getMessage());
             SecurityContextHolder.clearContext();
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
             return;
         } catch (Exception e) {
-            log.error("Unexpected error during authentication: {}", e.getMessage());
             SecurityContextHolder.clearContext();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Authentication failed");
+            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Authentication failed");
             return;
         }
-
-        filterChain.doFilter(request, response);
+        chain.doFilter(req, res);
     }
 
-    private void setupAuthentication(HttpServletRequest request, String token) {
-        String username = jwtUtil.extractUsername(token);
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(username, null, null);
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    private String resolve(HttpServletRequest req) {
+        String h = req.getHeader("Authorization");
+        return (h != null && h.startsWith(BEARER)) ? h.substring(BEARER.length()) : null;
     }
 
-    private String extractTokenFromRequest(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith(BEARER_PREFIX)) {
-            return authHeader.substring(BEARER_PREFIX.length());
-        }
-        return null;
-    }
+//    private void setupAuthentication(HttpServletRequest request, String token) {
+//        String username = jwtUtil.(token);
+//        UsernamePasswordAuthenticationToken authentication =
+//                new UsernamePasswordAuthenticationToken(username, null, null);
+//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//    }
+//
+//    private String extractTokenFromRequest(HttpServletRequest request) {
+//        String authHeader = request.getHeader("Authorization");
+//        if (authHeader != null && authHeader.startsWith(BEARER_PREFIX)) {
+//            return authHeader.substring(BEARER_PREFIX.length());
+//        }
+//        return null;
+//    }
 }
