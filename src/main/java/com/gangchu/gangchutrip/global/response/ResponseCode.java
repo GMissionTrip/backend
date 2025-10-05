@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 public enum ResponseCode {
 
     //여기에 각자 추가해서 사용하는게 좋지 않을까요..?
+    //200 success
+    SUCCESS(HttpStatus.OK, "SUCCESS"),
     //204 no content
     NO_DATA(HttpStatus.NO_CONTENT, "NO DATA"),
     //400 validation

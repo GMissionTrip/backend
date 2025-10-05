@@ -3,7 +3,7 @@ package com.gangchu.gangchutrip.travel.repository;
 import com.gangchu.gangchutrip.global.entity.Travel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TravelRepository extends JpaRepository<Travel, Long> {
+public interface ArchiveTravelRepository extends JpaRepository<Travel, Long> {
 
 
 }

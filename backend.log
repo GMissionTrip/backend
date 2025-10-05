@@ -1,0 +1,291 @@
+
+> Task :compileJava FAILED
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:8: error: package com.gangchu.gangchutrip.member.entity does not exist
+import com.gangchu.gangchutrip.member.entity.Member;
+                                            ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:9: error: cannot find symbol
+import com.gangchu.gangchutrip.member.repository.MemberRepository;
+                                                ^
+  symbol:   class MemberRepository
+  location: package com.gangchu.gangchutrip.member.repository
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:15: error: package com.gangchu.gangchutrip.pointhistory.entity does not exist
+import com.gangchu.gangchutrip.pointhistory.entity.PointHistory;
+                                                  ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:16: error: package com.gangchu.gangchutrip.pointhistory.repository does not exist
+import com.gangchu.gangchutrip.pointhistory.repository.PointHistoryRepository;
+                                                      ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:37: error: cannot find symbol
+    private final MemberRepository memberRepository;
+                  ^
+  symbol:   class MemberRepository
+  location: class UserFlowTestController
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:6: error: package com.gangchu.gangchutrip.member.entity does not exist
+import com.gangchu.gangchutrip.member.entity.Member;
+                                            ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:7: error: cannot find symbol
+import com.gangchu.gangchutrip.member.repository.MemberRepository;
+                                                ^
+  symbol:   class MemberRepository
+  location: package com.gangchu.gangchutrip.member.repository
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:11: error: cannot find symbol
+import com.gangchu.gangchutrip.travel.repository.TravelRepository;
+                                                ^
+  symbol:   class TravelRepository
+  location: package com.gangchu.gangchutrip.travel.repository
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:6: error: package com.gangchu.gangchutrip.member.entity does not exist
+import com.gangchu.gangchutrip.member.entity.Member;
+                                            ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:7: error: cannot find symbol
+import com.gangchu.gangchutrip.member.repository.MemberRepository;
+                                                ^
+  symbol:   class MemberRepository
+  location: package com.gangchu.gangchutrip.member.repository
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:12: error: package com.gangchu.gangchutrip.pointhistory.entity does not exist
+import com.gangchu.gangchutrip.pointhistory.entity.PointHistory;
+                                                  ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:13: error: package com.gangchu.gangchutrip.pointhistory.repository does not exist
+import com.gangchu.gangchutrip.pointhistory.repository.PointHistoryRepository;
+                                                      ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:14: error: package com.gangchu.gangchutrip.travel.entity does not exist
+import com.gangchu.gangchutrip.travel.entity.Travel;
+                                            ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:15: error: cannot find symbol
+import com.gangchu.gangchutrip.travel.repository.TravelRepository;
+                                                ^
+  symbol:   class TravelRepository
+  location: package com.gangchu.gangchutrip.travel.repository
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:3: error: cannot find symbol
+import com.gangchu.gangchutrip.global.entity.BaseEntity;
+                                            ^
+  symbol:   class BaseEntity
+  location: package com.gangchu.gangchutrip.global.entity
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:4: error: package com.gangchu.gangchutrip.travel.entity does not exist
+import com.gangchu.gangchutrip.travel.entity.Travel;
+                                            ^
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:15: error: cannot find symbol
+public class Mission extends BaseEntity {
+                             ^
+  symbol: class BaseEntity
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:42: error: cannot find symbol
+    private final PointHistoryRepository pointHistoryRepository;
+                  ^
+  symbol:   class PointHistoryRepository
+  location: class UserFlowTestController
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:32: error: cannot find symbol
+@RequiredArgsConstructor
+^
+  symbol:   class MemberRepository
+  location: class UserFlowTestController
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:23: error: cannot find symbol
+    private Travel travel;
+            ^
+  symbol:   class Travel
+  location: class Mission
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:23: error: cannot find symbol
+    private Travel travel;
+                   ^
+  symbol:   class Travel
+  location: class Mission
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:13: error: cannot find symbol
+@Setter
+^
+  symbol:   class Travel
+  location: class Mission
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:33: error: cannot find symbol
+    private final TravelRepository travelRepository;
+                  ^
+  symbol:   class TravelRepository
+  location: class MissionService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:34: error: cannot find symbol
+    private final MemberRepository memberRepository;
+                  ^
+  symbol:   class MemberRepository
+  location: class MissionService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:35: error: cannot find symbol
+    private final PointHistoryRepository pointHistoryRepository;
+                  ^
+  symbol:   class PointHistoryRepository
+  location: class MissionService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:126: error: cannot find symbol
+    public void generateMissionsForTravel(Travel travel) {
+                                          ^
+  symbol:   class Travel
+  location: class MissionService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:149: error: cannot find symbol
+    private void createMission(Travel travel, int order, String title, String description,
+                               ^
+  symbol:   class Travel
+  location: class MissionService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:28: error: cannot find symbol
+@RequiredArgsConstructor
+^
+  symbol:   class TravelRepository
+  location: class MissionService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:26: error: cannot find symbol
+    private final TravelRepository travelRepository;
+                  ^
+  symbol:   class TravelRepository
+  location: class TravelService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:27: error: cannot find symbol
+    private final MemberRepository memberRepository;
+                  ^
+  symbol:   class MemberRepository
+  location: class TravelService
+/Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:22: error: cannot find symbol
+@RequiredArgsConstructor
+^
+  symbol:   class TravelRepository
+  location: class TravelService
+31 errors
+
+[Incubating] Problems report is available at: file:///Users/minseokjeong/workspace/gmtrip/backend/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:9: error: cannot find symbol
+  import com.gangchu.gangchutrip.member.repository.MemberRepository;
+                                                  ^
+    symbol:   class MemberRepository
+    location: package com.gangchu.gangchutrip.member.repository
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:37: error: cannot find symbol
+      private final MemberRepository memberRepository;
+                    ^
+    symbol:   class MemberRepository
+    location: class UserFlowTestController
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:7: error: cannot find symbol
+  import com.gangchu.gangchutrip.member.repository.MemberRepository;
+                                                  ^
+    symbol:   class MemberRepository
+    location: package com.gangchu.gangchutrip.member.repository
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:11: error: cannot find symbol
+  import com.gangchu.gangchutrip.travel.repository.TravelRepository;
+                                                  ^
+    symbol:   class TravelRepository
+    location: package com.gangchu.gangchutrip.travel.repository
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:7: error: cannot find symbol
+  import com.gangchu.gangchutrip.member.repository.MemberRepository;
+                                                  ^
+    symbol:   class MemberRepository
+    location: package com.gangchu.gangchutrip.member.repository
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:15: error: cannot find symbol
+  import com.gangchu.gangchutrip.travel.repository.TravelRepository;
+                                                  ^
+    symbol:   class TravelRepository
+    location: package com.gangchu.gangchutrip.travel.repository
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:3: error: cannot find symbol
+  import com.gangchu.gangchutrip.global.entity.BaseEntity;
+                                              ^
+    symbol:   class BaseEntity
+    location: package com.gangchu.gangchutrip.global.entity
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:42: error: cannot find symbol
+      private final PointHistoryRepository pointHistoryRepository;
+                    ^
+    symbol:   class PointHistoryRepository
+    location: class UserFlowTestController
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:32: error: cannot find symbol
+  @RequiredArgsConstructor
+  ^
+    symbol:   class MemberRepository
+    location: class UserFlowTestController
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:23: error: cannot find symbol
+      private Travel travel;
+              ^
+    symbol:   class Travel
+    location: class Mission
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:23: error: cannot find symbol
+      private Travel travel;
+                     ^
+    symbol:   class Travel
+    location: class Mission
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:13: error: cannot find symbol
+  @Setter
+  ^
+    symbol:   class Travel
+    location: class Mission
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:33: error: cannot find symbol
+      private final TravelRepository travelRepository;
+                    ^
+    symbol:   class TravelRepository
+    location: class MissionService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:34: error: cannot find symbol
+      private final MemberRepository memberRepository;
+                    ^
+    symbol:   class MemberRepository
+    location: class MissionService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:35: error: cannot find symbol
+      private final PointHistoryRepository pointHistoryRepository;
+                    ^
+    symbol:   class PointHistoryRepository
+    location: class MissionService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:126: error: cannot find symbol
+      public void generateMissionsForTravel(Travel travel) {
+                                            ^
+    symbol:   class Travel
+    location: class MissionService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:149: error: cannot find symbol
+      private void createMission(Travel travel, int order, String title, String description,
+                                 ^
+    symbol:   class Travel
+    location: class MissionService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:28: error: cannot find symbol
+  @RequiredArgsConstructor
+  ^
+    symbol:   class TravelRepository
+    location: class MissionService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:26: error: cannot find symbol
+      private final TravelRepository travelRepository;
+                    ^
+    symbol:   class TravelRepository
+    location: class TravelService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:27: error: cannot find symbol
+      private final MemberRepository memberRepository;
+                    ^
+    symbol:   class MemberRepository
+    location: class TravelService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:22: error: cannot find symbol
+  @RequiredArgsConstructor
+  ^
+    symbol:   class TravelRepository
+    location: class TravelService
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:15: error: cannot find symbol
+  public class Mission extends BaseEntity {
+                               ^
+    symbol: class BaseEntity
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:8: error: package com.gangchu.gangchutrip.member.entity does not exist
+  import com.gangchu.gangchutrip.member.entity.Member;
+                                              ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:15: error: package com.gangchu.gangchutrip.pointhistory.entity does not exist
+  import com.gangchu.gangchutrip.pointhistory.entity.PointHistory;
+                                                    ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/test/UserFlowTestController.java:16: error: package com.gangchu.gangchutrip.pointhistory.repository does not exist
+  import com.gangchu.gangchutrip.pointhistory.repository.PointHistoryRepository;
+                                                        ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/travel/service/TravelService.java:6: error: package com.gangchu.gangchutrip.member.entity does not exist
+  import com.gangchu.gangchutrip.member.entity.Member;
+                                              ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:6: error: package com.gangchu.gangchutrip.member.entity does not exist
+  import com.gangchu.gangchutrip.member.entity.Member;
+                                              ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:12: error: package com.gangchu.gangchutrip.pointhistory.entity does not exist
+  import com.gangchu.gangchutrip.pointhistory.entity.PointHistory;
+                                                    ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:13: error: package com.gangchu.gangchutrip.pointhistory.repository does not exist
+  import com.gangchu.gangchutrip.pointhistory.repository.PointHistoryRepository;
+                                                        ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/service/MissionService.java:14: error: package com.gangchu.gangchutrip.travel.entity does not exist
+  import com.gangchu.gangchutrip.travel.entity.Travel;
+                                              ^
+  /Users/minseokjeong/workspace/gmtrip/backend/src/main/java/com/gangchu/gangchutrip/mission/entity/Mission.java:4: error: package com.gangchu.gangchutrip.travel.entity does not exist
+  import com.gangchu.gangchutrip.travel.entity.Travel;
+                                              ^
+  31 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 1s
+1 actionable task: 1 executed

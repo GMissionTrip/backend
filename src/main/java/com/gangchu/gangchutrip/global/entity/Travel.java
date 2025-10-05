@@ -1,10 +1,7 @@
 package com.gangchu.gangchutrip.global.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,7 @@ import lombok.Setter;
 public class Travel {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -48,5 +45,26 @@ public class Travel {
     private String title;
 
     @Column
-    private Enum<?> travelWith; // 혼자, 친구, 가족, 연인, 기타
+    @Enumerated(EnumType.STRING)
+    private TravelWith travelWith; // 혼자, 친구, 가족, 연인, 기타
+    
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TravelStatus status = TravelStatus.PLANNING; // 여행 상태
+    
+    @Column
+    private String region; // 여행 지역
+    
+    @Column(length = 1000)
+    private String coverImage; // 커버 이미지 URL
+
+    public enum TravelWith {
+        ALONE, FRIENDS, FAMILY, COUPLE, OTHER
+    }
+    
+    public enum TravelStatus {
+        PLANNING,    // 계획 중
+        IN_PROGRESS, // 진행 중
+        COMPLETED    // 완료
+    }
 }

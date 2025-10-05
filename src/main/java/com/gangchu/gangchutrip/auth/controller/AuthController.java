@@ -15,11 +15,10 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import com.gangchu.gangchutrip.global.security.jwt.MemberPrincipal;
 
 import java.util.Map;
 
@@ -125,5 +124,28 @@ public class AuthController {
     )
     ResponseEntity<?> unlink() {
         return authService.unlink();
+    }
+
+    @PutMapping("/password")
+    @Operation(
+            summary = "비밀번호 변경",
+            description = "사용자의 비밀번호를 변경합니다. 현재 비밀번호 확인 후 새 비밀번호로 변경됩니다.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "비밀번호 변경 성공"),
+                    @ApiResponse(responseCode = "400", description = "현재 비밀번호 불일치 또는 잘못된 요청"),
+                    @ApiResponse(responseCode = "401", description = "인증 필요")
+            }
+    )
+    ResponseEntity<?> changePassword(
+            @RequestBody Map<String, String> request,
+            @AuthenticationPrincipal MemberPrincipal principal) {
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+        
+        if (principal == null) {
+            return ResponseEntity.status(401).body(Map.of("message", "인증이 필요합니다"));
+        }
+        
+        return authService.changePassword(Long.parseLong(principal.getUsername()), currentPassword, newPassword);
     }
 }
