@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 public class Travel {
 
     @Id
@@ -48,5 +52,5 @@ public class Travel {
     private String title;
 
     @Column
-    private Enum<?> travelWith; // 혼자, 친구, 가족, 연인, 기타
+    private String travelWith; // 혼자, 친구, 가족, 연인, 기타
 }
