@@ -6,8 +6,9 @@ import com.gangchu.gangchutrip.auth.entity.Member;
 import com.gangchu.gangchutrip.auth.repository.MemberRepository;
 import com.gangchu.gangchutrip.global.response.ApiResponseFactory;
 import com.gangchu.gangchutrip.global.response.ResponseCode;
-import com.gangchu.gangchutrip.global.util.JwtUtil;
+import com.gangchu.gangchutrip.global.security.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -44,7 +45,7 @@ public class AuthService {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
     private final MemberRepository memberRepository;
-    private final JwtUtil jwtUtil;
+    private final JwtTokenProvider jwtUtil;
 
 
 
@@ -166,6 +167,8 @@ public class AuthService {
                 member.setEmail(email);
                 member.setNickname(nickname);
                 member.setProfile_image_url(profileImageUrl);
+                member.setCreated_at(Date.valueOf(java.time.LocalDate.now()));
+                member.setPoint(0);
                 System.out.println("email: " + email + " nickname: " + nickname + " profileImageUrl: " + profileImageUrl);
                 memberRepository.save(member);
             }
@@ -179,7 +182,13 @@ public class AuthService {
             return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(html);
         } catch (Exception e) {
             System.out.println("Error getting user profile: " + e.getMessage());
-            return ApiResponseFactory.success(ResponseCode.KAKAO_API_ERROR, e.getMessage() + " : " + e.getCause());
+            String html = """
+                <script>
+                window.opener.postMessage({error: '%s'}, 'http://localhost:3000');
+                window.close();
+                </script>""".formatted(e.getMessage());
+            System.out.println("HTML Response: " + html);
+            return ResponseEntity.internalServerError().contentType(MediaType.TEXT_HTML).body(html);
         }
     }
 
