@@ -34,6 +34,8 @@ public enum ResponseCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL SERVER ERROR"),
     DB_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "DB ERROR"),
 
+    DUPLICATED_RESOURCE(HttpStatus.CONFLICT, "중복된 리소스입니다"),
+
     // RouteController 관련 응답 코드
     ROUTE_FOUND(HttpStatus.OK, "다중경유지 길찾기 성공"),
     ROUTE_OPTIMIZED(HttpStatus.OK, "다중경유지 길찾기 최적화 성공"),
