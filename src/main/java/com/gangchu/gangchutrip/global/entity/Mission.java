@@ -1,32 +1,38 @@
 package com.gangchu.gangchutrip.global.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Mission {
-
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
-    private Enum<?> type; // 사진, 음성, 글
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MissionType type;
 
-    @Column
     private String content;
 
-    @Column
-    private Boolean isSudden; // 즉흥 미션 여부
+    @Column(name = "is_sudden", nullable = false)
+    private Boolean isSudden = false;
+
+    public enum MissionType {
+        PHOTO,
+        VIDEO,
+        VOICE,
+        TEXT
+    }
 }
+
