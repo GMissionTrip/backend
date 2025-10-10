@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,17 @@ public class TravelController {
     @PostMapping
     public ResponseEntity<?> createTravel(@AuthenticationPrincipal MemberPrincipal principal, @RequestBody
         TravelCreateRequestDTO dto) {
-        return travelService.createTravel();
+        return travelService.createTravel(principal.getUsername(), dto);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllTravel(@AuthenticationPrincipal MemberPrincipal principal) {
+        return travelService.getAllTravel(principal.getUsername());
+    }
+
+    //query param -> path variable
+    @GetMapping("/{travelId}")
+    public ResponseEntity<?> getTravelDetail(@AuthenticationPrincipal MemberPrincipal principal, @PathVariable Long travelId) {
+        return travelService.getTravelDetail(principal.getUsername(),travelId);
     }
 }
