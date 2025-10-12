@@ -21,6 +21,6 @@ public class Badge {
     @Column
     private String content;
 
-    @Column
+    @Column(name = "`condition`")
     private String condition; // 획득 조건
 }
