@@ -17,11 +17,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @AllArgsConstructor
@@ -125,5 +127,113 @@ public class AuthController {
     )
     ResponseEntity<?> unlink() {
         return authService.unlink();
+    }
+
+    // 아이디/비밀번호 로그인
+    @PostMapping("/login")
+    @Operation(
+            summary = "아이디/비밀번호 로그인",
+            description = "사용자 아이디와 비밀번호로 로그인합니다.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "로그인 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Map.class))),
+                    @ApiResponse(responseCode = "400", description = "잘못된 요청",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Map.class)))
+            }
+    )
+    ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
+        try {
+            String username = loginRequest.get("username");
+            String password = loginRequest.get("password");
+            
+            if (username == null || password == null) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("success", false);
+                response.put("message", "아이디와 비밀번호를 입력해주세요.");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
+            return authService.loginWithPassword(username, password);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "로그인 중 오류가 발생했습니다.");
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    // 비밀번호 변경
+    @PostMapping("/change-password")
+    @Operation(
+            summary = "비밀번호 변경",
+            description = "사용자의 비밀번호를 변경합니다.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "비밀번호 변경 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Map.class))),
+                    @ApiResponse(responseCode = "400", description = "잘못된 요청",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Map.class)))
+            }
+    )
+    ResponseEntity<?> changePassword(@RequestBody Map<String, String> passwordRequest) {
+        try {
+            String username = passwordRequest.get("username");
+            String currentPassword = passwordRequest.get("currentPassword");
+            String newPassword = passwordRequest.get("newPassword");
+            
+            if (username == null || currentPassword == null || newPassword == null) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("success", false);
+                response.put("message", "모든 필드를 입력해주세요.");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
+            return authService.changePassword(username, currentPassword, newPassword);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "비밀번호 변경 중 오류가 발생했습니다.");
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    // 회원가입
+    @PostMapping("/register")
+    @Operation(
+            summary = "회원가입",
+            description = "새로운 사용자를 등록합니다.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "회원가입 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Map.class))),
+                    @ApiResponse(responseCode = "400", description = "잘못된 요청",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Map.class)))
+            }
+    )
+    ResponseEntity<?> register(@RequestBody Map<String, String> registerRequest) {
+        try {
+            String username = registerRequest.get("username");
+            String password = registerRequest.get("password");
+            String nickname = registerRequest.get("nickname");
+            String email = registerRequest.get("email");
+            
+            if (username == null || password == null || nickname == null || email == null) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("success", false);
+                response.put("message", "모든 필드를 입력해주세요.");
+                return ResponseEntity.badRequest().body(response);
+            }
+            
+            return authService.register(username, password, nickname, email);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "회원가입 중 오류가 발생했습니다.");
+            return ResponseEntity.internalServerError().body(response);
+        }
     }
 }
